@@ -3,7 +3,7 @@ __author__ = "Shay Brynes"
 __license__ = "Apache License 2.0"
 
 
-def add(a, b):
+def calc_add(a, b):
     """""
     Adds two matrices together.
     :param a: The first Matrix in the addition
@@ -39,8 +39,8 @@ def add(a, b):
 
         else:
             # Return an error string.
-            return "Number of columns does not match."
+            return "ADD: Number of columns does not match."
 
     else:
         # Return an error string.
-        return "Number of rows does not match."
+        return "ADD: Number of rows does not match."

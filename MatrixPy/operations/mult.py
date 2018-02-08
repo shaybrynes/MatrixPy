@@ -3,7 +3,7 @@ __author__ = "Shay Brynes"
 __license__ = "Apache License 2.0"
 
 
-def mult(a, b):
+def calc_mult(a, b):
     """""
     Multiplies two matrices together.
     :param a: The first Matrix in the multiplication
@@ -44,5 +44,5 @@ def mult(a, b):
 
     else:
         # Return an error string.
-        return "Number of rows in 'b' does not match the number of columns in 'a'."
+        return "MULTIPLY: Number of rows in 'b' does not match the number of columns in 'a'."
 

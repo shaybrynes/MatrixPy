@@ -3,7 +3,7 @@ __author__ = "Shay Brynes"
 __license__ = "Apache License 2.0"
 
 
-def sub(a, b):
+def calc_sub(a, b):
     """""
     Subtracts two matrices from each other.
     :param a: The first Matrix in the subtraction.
@@ -39,8 +39,8 @@ def sub(a, b):
 
         else:
             # Return an error string.
-            return "Number of columns does not match."
+            return "SUBTRACT: Number of columns does not match."
 
     else:
         # Return an error string.
-        return "Number of rows does not match."
+        return "SUBTRACT: Number of rows does not match."
