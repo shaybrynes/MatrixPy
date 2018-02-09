@@ -16,6 +16,7 @@ _*A simple handler for for matrix objects in Python 3.*_
 ## License:
 
 This project uses a license, the license is automatically included in the project files.
+
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Installation:
