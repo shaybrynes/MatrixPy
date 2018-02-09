@@ -68,7 +68,7 @@ a_matrix.print()
 b_matrix.print()
 ```
 This section of code will output the two matrices. Which in this case will have the same value.
-Using the _ins\__ prefix tell MatrixPy that the modifier should be applied to the instance.
+Using the _ins\__ prefix tells MatrixPy that the modifier should be applied to the instance.
 Subtraction of the matrices works in the same way, but the call to be made is as follows;
 ```python
 b_matrix = Matrix.subtract(a_matrix, identity)
