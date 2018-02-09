@@ -1,6 +1,17 @@
 # MatrixPy
 _*A simple handler for for matrix objects in Python 3.*_
 
+## Contents:
+
+* [Installation](https://github.com/shaybrynes/MatrixPy#installation)
+* [Usage](https://github.com/shaybrynes/MatrixPy#usage)
+    * [Printing the Matrices](https://github.com/shaybrynes/MatrixPy#printing-the-matrices)
+    * [Adding, Subtracting and Multiplying Matrices](https://github.com/shaybrynes/MatrixPy#adding-subtracting-and-multiplying-matrices)
+    * [Finding the Determinant of Matrices](https://github.com/shaybrynes/MatrixPy#finding-the-determinant-of-matrices)
+    * [Finding the Inverse of Matrices](https://github.com/shaybrynes/MatrixPy#finding-the-inverse-of-matrices)
+* [Support](https://github.com/shaybrynes/MatrixPy#support)
+* [Future Additions](https://github.com/shaybrynes/MatrixPy#future-additions)
+
 ## Installation:
 
 Just clone the MatrixPy repository and place the folder in your project directory. Then add the following to the top
