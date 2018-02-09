@@ -6,9 +6,10 @@ __license__ = "Apache License 2.0"
 def calc_mult(a, b):
     """""
     Multiplies two matrices together.
-    :param a: The first Matrix in the multiplication
-    :param b: The second Matrix in the multiplication
-    :return: The result of the multiplication of the two matrices 
+    :param list a: The first Matrix in the multiplication.
+    :param list b: The second Matrix in the multiplication.
+    :return: The result of the multiplication of the two matrices.
+    :rtype: list
     """""
 
     # For matrix multiplication columns in 'a' must match number of rows in 'b'.
@@ -45,4 +46,3 @@ def calc_mult(a, b):
     else:
         # Return an error string.
         return "MULTIPLY: Number of rows in 'b' does not match the number of columns in 'a'."
-

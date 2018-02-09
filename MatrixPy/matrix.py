@@ -7,19 +7,18 @@ from MatrixPy.operations.add import *
 from MatrixPy.operations.sub import *
 from MatrixPy.operations.mult import *
 from MatrixPy.operations.det import *
+from MatrixPy.operations.inv import *
 
 
 class Matrix:
 
-    def __init__(self, matrix_input, *ignore, m=None, n=None, det=False, inv=False):
+    def __init__(self, matrix_input, *ignore, m=None, n=None):
         """""
         Creates an instance of the matrix class.
         
-        :param list matrix_input: The first Matrix in the addition.
+        :param tuple matrix_input: The first Matrix in the addition.
         :param int m: The number of rows in the Matrix.
         :param int n: The number of columns in the Matrix.
-        :param boolean determinant: If true the determinant will be pre-calculated, callable as obj.determinant
-        :param boolean inverse: If true the inverse will be pre-calculated, callable as obj.inverse
         """""
 
         # If the user has accidentally added more parameters than needed.
@@ -48,15 +47,6 @@ class Matrix:
         else:
             self.n = n
 
-        # If the user does not want the determinant pre-calculated.
-        if det is False:
-
-            # Set the determinant to None.
-            self.det = None
-
-        else:
-            self.det = self.ins_determinant()
-
     def print(self):
         """"" 
         Prints the matrix in a pretty fashion.
@@ -64,35 +54,79 @@ class Matrix:
 
         print_matrix(self.matrix)
 
-    @staticmethod
-    def print_stc(matrix):
-        """"" 
-        Prints the matrix in a pretty fashion.
+    def to_list(self):
+        """""
+        This method is important for the immutability of the matrix.
+        Since an operation typically requires a list, it needs to be 
+        converted from a tuple before the operation can proceed.
+
+        :return: A list that represents the matrix.
+        :rtype: list
         """""
 
-        print_matrix(matrix)
+        to_list = []
+
+        # Iterate over each element in the whole.
+        for i in range(0, len(self.matrix)):
+
+            # Convert the element to a list.
+            to_list.append(list(self.matrix[i]))
+
+        # Convert the outer tuple to a list.
+        to_list = list(to_list)
+        
+        return to_list
+
+    @staticmethod
+    def to_tuple(listed):
+        """""
+        This method is important for the immutability of the matrix.
+        Since an operation typically produces a list, it needs to be 
+        converted to a tuple before it can be stored correctly.
+        
+        :param list listed: A list that represents the matrix.
+        :return: A tuple that represents the matrix.
+        :rtype: tuple
+        """""
+
+        to_tuple = []
+
+        # Iterate over each element in the whole.
+        for i in range(0, len(listed)):
+
+            # Convert the element to a tuple.
+            to_tuple.append(tuple(listed[i]))
+
+        # Convert the outer list to a tuple.
+        to_tuple = tuple(to_tuple)
+
+        return to_tuple
 
     def ins_add(self, b):
         """""
         Adds another matrix to the instance. Replacing the value of 
         this instance with the value of the sum.
 
-        :param b: Is another instance of the Matrix class.
+        :param Matrix b: Is another instance of the Matrix class.
         """""
 
         # If 'b' is of the type Matrix
         if isinstance(b, Matrix):
 
             # Add the two matrices together.
-            resultant = calc_add(self.matrix, b.matrix)
+            # Send list versions of the matrix tuples, since tuples are immutable.
+            resultant = calc_add(self.to_list(), b.to_list())
 
             # If there was a problem with the addition.
             if type(resultant) is str:
                 print(resultant)
+                raise ValueError
 
             # Set the value of this instance to the sum.
             else:
-                self.matrix = resultant
+
+                # Since resultant is a list, convert it back to a tuple.
+                self.matrix = Matrix.to_tuple(resultant)
 
         else:
             print("ERROR: Argument 'b' is not of type 'Matrix'.")
@@ -104,8 +138,8 @@ class Matrix:
         """""
         Adds two matrices together producing a new instance of the class.
         
-        :param a: The first instance of the Matrix class.
-        :param b: Is another instance of the Matrix class.
+        :param Matrix a: The first instance of the Matrix class.
+        :param Matrix b: Is another instance of the Matrix class.
         :return: The addition of the two matrix objects.
         :rtype: Matrix
         """""
@@ -117,15 +151,19 @@ class Matrix:
             if isinstance(b, Matrix):
 
                 # Add the two matrices together.
-                resultant = calc_add(a.matrix, b.matrix)
+                # Send list versions of the matrix tuples, since tuples are immutable.
+                resultant = calc_add(a.to_list(), b.to_list())
 
                 # If there was a problem with the addition.
                 if type(resultant) is str:
                     print(resultant)
+                    raise ValueError
 
                 # Set the value of this instance to the sum.
                 else:
-                    c = Matrix(resultant, m=a.m, n=a.n)
+
+                    # Since resultant is a list, convert it back to a tuple.
+                    c = Matrix(Matrix.to_tuple(resultant), m=a.m, n=a.n)
 
                     # Return the matrix 'c'.
                     return c
@@ -145,22 +183,26 @@ class Matrix:
         Adds another matrix to the instance. Replacing the value of 
         this instance with the value of the negation.
 
-        :param b: Is another instance of the Matrix class.
+        :param Matrix b: Is another instance of the Matrix class.
         """""
 
         # If 'b' is of the type Matrix
         if isinstance(b, Matrix):
 
             # Subtract the two matrices.
-            resultant = calc_sub(self.matrix, b.matrix)
+            # Send list versions of the matrix tuples, since tuples are immutable.
+            resultant = calc_sub(self.to_list(), b.to_list())
 
-            # If there was a problem with the addition.
+            # If there was a problem with the subtraction.
             if type(resultant) is str:
                 print(resultant)
+                raise ValueError
 
-            # Set the value of this instance to the sum.
+            # Set the value of this instance to the subtraction.
             else:
-                self.matrix = resultant
+
+                # Since resultant is a list, convert it back to a tuple.
+                self.matrix = Matrix.to_tuple(resultant)
 
         else:
             print("ERROR: Argument 'b' is not of type 'Matrix'.")
@@ -172,8 +214,8 @@ class Matrix:
         """""
         Subtracts two matrices together producing a new instance of the class.
 
-        :param a: The first instance of the Matrix class.
-        :param b: Is another instance of the Matrix class.
+        :param Matrix a: The first instance of the Matrix class.
+        :param Matrix b: Is another instance of the Matrix class.
         :return: The subtraction of the two matrix objects.
         :rtype: Matrix
         """""
@@ -184,16 +226,20 @@ class Matrix:
             # If 'b' is of the type Matrix
             if isinstance(b, Matrix):
 
-                # Subtract the two matrices together.
-                resultant = calc_sub(a.matrix, b.matrix)
+                # Subtract the two matrices.
+                # Send list versions of the matrix tuples, since tuples are immutable.
+                resultant = calc_sub(a.to_list(), b.to_list())
 
-                # If there was a problem with the addition.
+                # If there was a problem with the subtraction.
                 if type(resultant) is str:
                     print(resultant)
+                    raise ValueError
 
-                # Set the value of this instance to the sum.
+                # Set the value of this instance to the subtraction.
                 else:
-                    c = Matrix(resultant, m=a.m, n=a.n)
+
+                    # Since resultant is a list, convert it back to a tuple.
+                    c = Matrix(Matrix.to_tuple(resultant), m=a.m, n=a.n)
 
                     # Return the matrix 'c'.
                     return c
@@ -213,22 +259,26 @@ class Matrix:
         Multiplies another matrix to the instance. Replacing the value of 
         this instance with the value of the product.
 
-        :param b: Is another instance of the Matrix class.
+        :param Matrix b: Is another instance of the Matrix class.
         """""
 
         # If 'b' is of the type Matrix
         if isinstance(b, Matrix):
 
             # Multiply the two matrices.
-            resultant = calc_mult(self.matrix, b.matrix)
+            # Send list versions of the matrix tuples, since tuples are immutable.
+            resultant = calc_mult(self.to_list(), b.to_list())
 
-            # If there was a problem with the addition.
+            # If there was a problem with the product.
             if type(resultant) is str:
                 print(resultant)
+                raise ValueError
 
-            # Set the value of this instance to the sum.
+            # Set the value of this instance to the product.
             else:
-                self.matrix = resultant
+
+                # Since resultant is a list, convert it back to a tuple.
+                self.matrix = Matrix.to_tuple(resultant)
 
         else:
             print("ERROR: Argument 'b' is not of type 'Matrix'.")
@@ -240,8 +290,8 @@ class Matrix:
         """""
         Multiplies two matrices together producing a new instance of the class.
 
-        :param a: The first instance of the Matrix class.
-        :param b: Is another instance of the Matrix class.
+        :param Matrix a: The first instance of the Matrix class.
+        :param Matrix b: Is another instance of the Matrix class.
         :return: The product of the two matrix objects.
         :rtype: Matrix
         """""
@@ -253,15 +303,19 @@ class Matrix:
             if isinstance(b, Matrix):
 
                 # Multiply the two matrices together.
-                resultant = calc_mult(a.matrix, b.matrix)
+                # Send list versions of the matrix tuples, since tuples are immutable.
+                resultant = calc_mult(a.to_list(), b.to_list())
 
-                # If there was a problem with the addition.
+                # If there was a problem with the product.
                 if type(resultant) is str:
                     print(resultant)
+                    raise ValueError
 
-                # Set the value of this instance to the sum.
+                # Set the value of this instance to the product.
                 else:
-                    c = Matrix(resultant, m=a.m, n=b.n)
+
+                    # Since resultant is a list, convert it back to a tuple.
+                    c = Matrix(Matrix.to_tuple(resultant), m=a.m, n=b.n)
 
                     # Return the matrix 'c'.
                     return c
@@ -276,46 +330,88 @@ class Matrix:
             # Throw a TypeError
             raise TypeError
 
-    def ins_determinant(self):
+    def determinant(self):
         """""
         Finds the determinant of the instance matrix.
 
         :return: The determinant of the instance.
-        :rtype: Float
+        :rtype: float
         """""
 
-        resultant = calc_det(self.matrix)
+        # Send a list version of the matrix tuple, since tuples are immutable.
+        resultant = calc_det(self.to_list())
 
         # If there was a problem with the determinant.
         if type(resultant) is str:
             print(resultant)
+            raise ValueError
 
-        # Set the value of this instance to the sum.
+        # Determinant found successfully.
         else:
-            self.det = resultant
 
-        # Return the determinant of the instance.
-        return resultant
+            # Return the determinant of the instance.
+            return resultant
+
+    def ins_inverse(self):
+        """""
+        Finds the inverse of the instance matrix.
+
+        :return: None, sets the matrix to its inverse.
+        """""
+
+        # If the Matrix is not singular.
+        # Send a list version of the matrix tuple.
+        if Matrix.determinant(self) != 0:
+
+            # Send a list version of the matrix tuple, since tuples are immutable.
+            resultant = calc_inv(self.to_list())
+
+            # If there was a problem with the inverse.
+            if type(resultant) is str:
+                print(resultant)
+                raise ValueError
+
+            # Set the instance matrix to the result.
+            else:
+
+                # Since resultant is a list, convert it back to a tuple.
+                self.matrix = Matrix.to_tuple(resultant)
+
+        # There will be no inverse if it is.
+        else:
+            print("INVERSE: Matrix has no inverse, determinant is 0")
+            raise ZeroDivisionError
 
     @staticmethod
-    def determinant(a):
+    def inverse(a):
         """""
-                Finds the determinant of the instance matrix.
+        Finds the inverse of the instance matrix.
 
-                :return: The determinant of the instance.
-                :rtype: Float
-                """""
+        :return: The inverse of the instance.
+        :rtype: Matrix
+        """""
 
-        resultant = calc_det(a)
+        # If the Matrix is not singular.
+        # Send a list version of the matrix tuple.
+        if Matrix.determinant(a) != 0:
 
-        # If there was a problem with the determinant.
-        if type(resultant) is str:
-            print(resultant)
+            # Send a list version of the matrix tuple, since tuples are immutable.
+            resultant = calc_inv(a.to_list())
 
-        # Set the value of this instance to the sum.
+            # If there was a problem with the inverse.
+            if type(resultant) is str:
+                raise ValueError
+
+            # Create a new Matrix object to be returned.
+            else:
+
+                # Since resultant is a list, convert it back to a tuple.
+                c = Matrix(Matrix.to_tuple(resultant), m=a.m, n=a.n)
+
+                # Return the inverse of 'a'.
+                return c
+
+        # There will be no inverse if it is.
         else:
-            a.det = resultant
-
-        # Return the determinant of 'a'.
-        return resultant
-
+            print("INVERSE: Matrix has no inverse, determinant is 0")
+            raise ZeroDivisionError

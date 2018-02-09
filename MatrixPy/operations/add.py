@@ -6,20 +6,21 @@ __license__ = "Apache License 2.0"
 def calc_add(a, b):
     """""
     Adds two matrices together.
-    :param a: The first Matrix in the addition
-    :param b: The second Matrix in the addition
-    :return: The result of the addition of the two matrices 
+    :param list a: The first Matrix in the addition.
+    :param list b: The second Matrix in the addition.
+    :return: The result of the addition of the two matrices.
+    :rtype: list
     """""
 
     # If the number of rows in each of the Matrices is the same.
     if len(a) == len(b):
 
-        # If the number of columns is the same in each of the Matrices
+        # If the number of columns is the same in each of the Matrices.
         if len(a[0]) == len(b[0]):
 
             solution = []
 
-            # Iterate over each of the rows
+            # Iterate over each of the rows.
             for m in range(0, len(a)):
                 row = []
 
