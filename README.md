@@ -84,7 +84,7 @@ The rows in _a_ needs to match the number of columns in matrix _b_.
 
 ### Finding the Determinant of Matrices:
 
-In MatrixPy determinants are found using the method found on [here](https://en.wikipedia.org/wiki/Gaussian_elimination#Computing_determinants)
+In MatrixPy determinants are found using the method found on [here](https://en.wikipedia.org/wiki/Gaussian_elimination#Computing_determinants),
 on wikipedia. This method can be applied to an matrix of any size, hence the determinant of any _m_ x _m_ matrix can be found using MatrixPy.
 
 The determinant in MatrixPy is calculated using the method below, it returns a float.
@@ -96,7 +96,7 @@ print(determinant)
 
 ### Finding the Inverse of Matrices:
 
-MatrixPy uses a similar algorithm to find the inverse of a matrix, it can be found [here](https://en.wikipedia.org/wiki/Gaussian_elimination#Finding_the_inverse_of_a_matrix)
+MatrixPy uses a similar algorithm to find the inverse of a matrix, it can be found [here](https://en.wikipedia.org/wiki/Gaussian_elimination#Finding_the_inverse_of_a_matrix),
 again on wikipedia. As with the determinant this can be applied to a matrix of any size.
 
 The determinant in MatrixPy is calculated using the method below,
