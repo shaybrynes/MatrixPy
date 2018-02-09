@@ -4,6 +4,7 @@ _*A simple handler for for matrix objects in Python 3.*_
 ## Contents:
 
 * [Installation](https://github.com/shaybrynes/MatrixPy#installation)
+* [License](https://github.com/shaybrynes/MatrixPy#license)
 * [Usage](https://github.com/shaybrynes/MatrixPy#usage)
     * [Printing the Matrices](https://github.com/shaybrynes/MatrixPy#printing-the-matrices)
     * [Adding, Subtracting and Multiplying Matrices](https://github.com/shaybrynes/MatrixPy#adding-subtracting-and-multiplying-matrices)
@@ -11,6 +12,11 @@ _*A simple handler for for matrix objects in Python 3.*_
     * [Finding the Inverse of Matrices](https://github.com/shaybrynes/MatrixPy#finding-the-inverse-of-matrices)
 * [Support](https://github.com/shaybrynes/MatrixPy#support)
 * [Future Additions](https://github.com/shaybrynes/MatrixPy#future-additions)
+
+## License:
+
+This project uses a license, the license is automatically included in the project files.
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Installation:
 
