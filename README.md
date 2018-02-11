@@ -7,6 +7,7 @@ _*A simple handler for matrix objects in Python 3.*_
 * [License](https://github.com/shaybrynes/MatrixPy#license)
 * [Usage](https://github.com/shaybrynes/MatrixPy#usage)
     * [Printing the Matrices](https://github.com/shaybrynes/MatrixPy#printing-the-matrices)
+    * [Generate a Matrix](https://github.com/shaybrynes/MatrixPy#generate-a-matrix)
     * [Adding, Subtracting and Multiplying Matrices](https://github.com/shaybrynes/MatrixPy#adding-subtracting-and-multiplying-matrices)
     * [Finding the Determinant of Matrices](https://github.com/shaybrynes/MatrixPy#finding-the-determinant-of-matrices)
     * [Finding the Inverse of Matrices](https://github.com/shaybrynes/MatrixPy#finding-the-inverse-of-matrices)
@@ -47,9 +48,9 @@ Say, instead you wanted a 3x5 matrix.
 three_by_five = ((2, 0, -3, 4, 5), (7, 2, -1, -4, 0), (-9, 4, 5, 3, 6))
 a = Matrix(three_by_five, m=3, n=5) # m=int() and n=int() are non-essential parameters 
 ```
-This would produce a matrix object equivalent to t5he matrix below,
+This would produce a matrix object equivalent to the matrix below,
 
-![FiveByFive](http://latex.codecogs.com/gif.latex?%5Cbegin%7Bpmatrix%7D%202%20%26%200%20%26%20-3%20%26%204%20%26%205%5C%5C%207%20%26%202%20%26%20-1%20%26%20-4%20%26%200%5C%5C%20-9%20%26%204%20%26%205%20%26%203%20%26%206%5C%5C%20%5Cend%7Bpmatrix%7D)
+![ThreeByFive](http://latex.codecogs.com/gif.latex?%5Cbegin%7Bpmatrix%7D%202%20%26%200%20%26%20-3%20%26%204%20%26%205%5C%5C%207%20%26%202%20%26%20-1%20%26%20-4%20%26%200%5C%5C%20-9%20%26%204%20%26%205%20%26%203%20%26%206%5C%5C%20%5Cend%7Bpmatrix%7D)
 
 In fact when using this object the only limit to the size of the matrices available is the memory available to python.
 
@@ -60,6 +61,20 @@ MatrixPy can handle the printing of your matrices to the screen, it can be achie
 identity = ((1, 0, 0), (0, 1, 0), (0, 0, 1))
 identity.print()
 ```
+
+### Generate a Matrix:
+
+This module also allows the generation of matrices of any size. The method to call is:
+
+```python
+a_matrix = Matrix.generate(m, n, minimum, maximum, integers=True, decimal_places=None) # The last two arguments are non-essential.
+```
+
+This will generate a matrix of size _'m'_ x _'n'_ with elements that range in value from _'minimum'_ to _'maximum'_
+these values must all be integers, however a future goal is to allow floating point values for the minimum
+and maximum value. _'integers'_ and _'decimal/_places'_ are optional arguments that allow the generation of 
+floating point values to fill the elements on th matrix. _'integers'_ set to false produces floating point
+values and _'decimal/_places'_ sets the number of decimal places each of the elements should be rounded to.
 
 ### Adding, Subtracting and Multiplying Matrices:
 
@@ -89,12 +104,12 @@ b_matrix = Matrix.multiply(a_matrix, identity)
 a_matrix.ins_multiply(identity)
 ```
 However, it should be noted that the normal rules for multiplying matrices applies. 
-The rows in _a_ needs to match the number of columns in matrix _b_.
+The rows in _'a'_ needs to match the number of columns in matrix _'b'_.
 
 ### Finding the Determinant of Matrices:
 
 In MatrixPy determinants are found using the algorithm found [here](https://en.wikipedia.org/wiki/Gaussian_elimination#Computing_determinants),
-on wikipedia. This method can be applied to an matrix of any size, hence the determinant of any _m_ x _m_ matrix can be found using MatrixPy.
+on wikipedia. This method can be applied to an matrix of any size, hence the determinant of any _'m'_ x _'m'_ matrix can be found using MatrixPy.
 
 The determinant in MatrixPy is calculated using the method below, it returns a float.
 ```python
@@ -132,6 +147,6 @@ If you are consistently having issues setting up and using the project, do not h
 ## Future Additions:
 
 - [x] Ability to calculate the inverse and determinant.
-- [ ] Calculation of transpose.
+- [x] Calculation of transpose.
 - [ ] Installation via PIP.
 - [ ] (Much later) eigenvalues. 
