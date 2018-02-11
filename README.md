@@ -67,14 +67,15 @@ identity.print()
 This module also allows the generation of matrices of any size. The method to call is:
 
 ```python
-a_matrix = Matrix.generate(m, n, minimum, maximum, integers=True, decimal_places=None) # The last two arguments are non-essential.
+a_matrix = Matrix.generate(m, n, minimum, maximum, integers=True, decimal_places=None) 
+# The last two arguments are non-essential.
 ```
 
 This will generate a matrix of size _'m'_ x _'n'_ with elements that range in value from _'minimum'_ to _'maximum'_
 these values must all be integers, however a future goal is to allow floating point values for the minimum
-and maximum value. _'integers'_ and _'decimal/_places'_ are optional arguments that allow the generation of 
+and maximum value. _'integers'_ and _'decimal\_places'_ are optional arguments that allow the generation of 
 floating point values to fill the elements on th matrix. _'integers'_ set to false produces floating point
-values and _'decimal/_places'_ sets the number of decimal places each of the elements should be rounded to.
+values and _'decimal\_places'_ sets the number of decimal places each of the elements should be rounded to.
 
 ### Adding, Subtracting and Multiplying Matrices:
 
