@@ -38,7 +38,7 @@ You are now ready to start using matrix objects in your project.
 To instantiate a matrix object in MatrixPy use the Matrix() method.
 ```python
 identity = ((1, 0, 0), (0, 1, 0), (0, 0, 1)) # The 3x3 identity matrix
-a = Matrix(identity)
+a_matrix = Matrix(identity)
 ```
 It is important to note that the matrix inputted *must* be of the type tuple, this important for immutability.
 The above code specifically makes the value of the matrix object the below matrix,
@@ -48,13 +48,22 @@ The above code specifically makes the value of the matrix object the below matri
 Say, instead you wanted a 3x5 matrix.
 ```python
 three_by_five = ((2, 0, -3, 4, 5), (7, 2, -1, -4, 0), (-9, 4, 5, 3, 6))
-a = Matrix(three_by_five, m=3, n=5) # m=int() and n=int() are non-essential parameters 
+a_matrix = Matrix(three_by_five, m=3, n=5) # m=int() and n=int() are non-essential parameters 
 ```
 This would produce a matrix object equivalent to the matrix below,
 
 ![ThreeByFive](http://latex.codecogs.com/gif.latex?%5Cbegin%7Bpmatrix%7D%202%20%26%200%20%26%20-3%20%26%204%20%26%205%5C%5C%207%20%26%202%20%26%20-1%20%26%20-4%20%26%200%5C%5C%20-9%20%26%204%20%26%205%20%26%203%20%26%206%5C%5C%20%5Cend%7Bpmatrix%7D)
 
 In fact when using this object the only limit to the size of the matrices available is the memory available to python.
+
+Once the Matrix Object has been instantiated the data used to make the object can be retrieved. To retrieve the data use
+any of the following commands;
+
+```python
+a_tuple = a_matrix.matrix # Returns the tuple that stores all the matrix elements.
+a_tuple = a_matrix.get_tuple() # Also returns the tuple.
+a_list = a_matrix.get_list() # Returns a list that contains the same information as the tuple.
+```
 
 ### Printing the Matrices:
 
