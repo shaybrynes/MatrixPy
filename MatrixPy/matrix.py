@@ -3,6 +3,7 @@ __author__ = "Shay Brynes"
 __license__ = "Apache License 2.0"
 
 from MatrixPy.print_matrix import *
+from MatrixPy.gen_matrix import *
 from MatrixPy.operations.add import *
 from MatrixPy.operations.sub import *
 from MatrixPy.operations.mult import *
@@ -102,6 +103,67 @@ class Matrix:
         to_tuple = tuple(to_tuple)
 
         return to_tuple
+
+    @staticmethod
+    def generate(m, n, minimum, maximum, *ignore, integers=True, decimal_places=None):
+        """""
+        Generate a random matrix of a particular size.
+
+        :param int m: The width of the matrix.
+        :param int n: The height of the matrix.
+        :param int minimum: The minimum value to appear in the matrix.
+        :param int maximum: The maximum value to appear in the matrix.
+        :param boolean integers: Determines whether the method returns a matrix with just integer values.
+        :param int decimal_places: Determines the number of decimal places for each element.
+        :return: Returns a matrix filled with random values,
+        :rtype: Matrix
+        """""
+
+        # If the user has accidentally added more parameters than needed.
+        if ignore:
+            print("Unnecessary arguments submitted to generator method.")
+            # Throw a type error.
+            raise TypeError
+
+        # If 'm' is and integer.
+        if type(m) is int:
+
+            # If 'n' is and integer.
+            if type(n) is int:
+
+                # If 'minimum' is and integer.
+                if type(minimum) is int:
+
+                    # If 'maximum' is and integer.
+                    if type(maximum) is int:
+
+                        # Produce a random matrix.
+                        resultant = gen_matrix(m, n, minimum, maximum, integers, decimal_places)
+
+                        # Produce a Matrix object from this result.
+                        c = Matrix(Matrix.to_tuple(resultant), m=m, n=n)
+
+                        return c
+
+                    else:
+                        print("ERROR: Argument 'maximum' is not of type 'int'.")
+                        # Throw a TypeError
+                        raise TypeError
+
+                else:
+                    print("ERROR: Argument 'minimum' is not of type 'int'.")
+                    # Throw a TypeError
+                    raise TypeError
+
+            else:
+                print("ERROR: Argument 'n' is not of type 'int'.")
+                # Throw a TypeError
+                raise TypeError
+
+        else:
+            print("ERROR: Argument 'm' is not of type 'int'.")
+            # Throw a TypeError
+            raise TypeError
 
     def ins_transpose(self):
         """""
