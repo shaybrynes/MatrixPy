@@ -48,26 +48,6 @@ class Matrix:
         else:
             self.n = n
 
-    def get_tuple(self):
-        """""
-        Returns the tuple used as the data for the Matrix object.
-        
-        :return: The tuple associated with the Matrix
-        :rtype: tuple
-        """""
-
-        return self.matrix
-
-    def get_list(self):
-        """""
-        Returns the list used as the data for the Matrix object.
-
-        :return: The list associated with the Matrix
-        :rtype: list
-        """""
-
-        return Matrix.to_list(self)
-
     def print(self):
         """"" 
         Prints the matrix in a pretty fashion.
