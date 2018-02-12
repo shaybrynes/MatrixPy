@@ -9,6 +9,7 @@ from MatrixPy.operations.sub import *
 from MatrixPy.operations.mult import *
 from MatrixPy.operations.det import *
 from MatrixPy.operations.inv import *
+from MatrixPy.operations.transpose import *
 
 
 class Matrix:
@@ -75,7 +76,7 @@ class Matrix:
 
         # Convert the outer tuple to a list.
         to_list = list(to_list)
-        
+
         return to_list
 
     @staticmethod
@@ -163,6 +164,30 @@ class Matrix:
             print("ERROR: Argument 'm' is not of type 'int'.")
             # Throw a TypeError
             raise TypeError
+
+    def ins_transpose(self):
+        """""
+        Finds the transpose of this instance. Replaces the value of the
+        instance with its transpose.
+        
+        """""
+
+        resultant = calc_trans(self.to_list())
+
+        self.matrix = Matrix.to_tuple(resultant)
+
+    @staticmethod
+    def transpose(a):
+        """""
+        Finds the transpose of the matrix a.
+        
+        :return: The matrix that is the transpose of 'a'.
+        :rtype: Matrix
+        """""
+
+        resultant = calc_trans(a.to_list())
+
+        a.matrix = Matrix.to_tuple(resultant)
 
     def ins_add(self, b):
         """""
@@ -417,8 +442,6 @@ class Matrix:
     def ins_inverse(self):
         """""
         Finds the inverse of the instance matrix.
-
-        :return: None, sets the matrix to its inverse.
         """""
 
         # If the Matrix is not singular.
