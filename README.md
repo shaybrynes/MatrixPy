@@ -24,8 +24,14 @@ This project uses a license, the license is automatically included in the projec
 
 ## Installation:
 
-Just clone the MatrixPy repository and place the folder in your project directory. Then add the following to the top
-of your code to to use the module.
+The installation can be completed one of two ways, either clone the MatrixPy repository and place the folder in your project directory. 
+Or run the following _'pip'_ command
+
+```DOS .bat
+pip install MatrixPy
+```
+
+Then add the following to the top of your code to to use the module.
 
 ```python
 from MatrixPy.matrix import Matrix
@@ -173,5 +179,5 @@ If you are consistently having issues setting up and using the project, do not h
 
 - [x] Ability to calculate the inverse and determinant.
 - [x] Calculation of transpose.
-- [ ] Installation via PIP.
+- [x] Installation via PIP.
 - [ ] (Much later) eigenvalues. 
