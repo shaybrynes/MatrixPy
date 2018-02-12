@@ -1,3 +1,4 @@
+
 # MatrixPy
 _*A simple handler for matrix objects in Python 3.*_
 
@@ -9,6 +10,7 @@ _*A simple handler for matrix objects in Python 3.*_
     * [Printing the Matrices](https://github.com/shaybrynes/MatrixPy#printing-the-matrices)
     * [Generate a Matrix](https://github.com/shaybrynes/MatrixPy#generate-a-matrix)
     * [Adding, Subtracting and Multiplying Matrices](https://github.com/shaybrynes/MatrixPy#adding-subtracting-and-multiplying-matrices)
+    * [Finding the Transpose of a Matrix](https://github.com/shaybrynes/MatrixPy#finding-the-transpose-of-a-matrix)
     * [Finding the Determinant of Matrices](https://github.com/shaybrynes/MatrixPy#finding-the-determinant-of-matrices)
     * [Finding the Inverse of Matrices](https://github.com/shaybrynes/MatrixPy#finding-the-inverse-of-matrices)
 * [Support](https://github.com/shaybrynes/MatrixPy#support)
@@ -106,6 +108,19 @@ a_matrix.ins_multiply(identity)
 ```
 However, it should be noted that the normal rules for multiplying matrices applies. 
 The rows in _'a'_ needs to match the number of columns in matrix _'b'_.
+
+### Finding the Transpose of a Matrix:
+
+MatrixPy also allows the user to calculate the transpose of a given Matrix. The transpose is a 
+flipping of the matrix across its diagonal axis from the upper-left most corner. The transpose
+is found as follows:
+
+```python
+b_matrix = Matrix.transpose(a_matrix) # or
+a_matrix.ins_transpose()
+``` 
+
+Both of these methods produce the same result, but as before _ins\__ changes the value of the instance.
 
 ### Finding the Determinant of Matrices:
 
