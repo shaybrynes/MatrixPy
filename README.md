@@ -200,7 +200,7 @@ This project now also supports the calculation for solutions for a system of sim
 
 The system of equations shown below has 3 equations for 3 variables. An equation is required for each variable for a full solution to be found. In short, the tuple of equation coefficients must be square.
 
-![system_eqs](<img src="http://latex.codecogs.com/gif.latex?\begin{cases}&space;&&space;x&space;&plus;&space;3y&space;&plus;&space;4z&space;=&space;-10\\&space;&&space;3x&space;-&space;4y&space;&plus;&space;2z&space;=&space;4\\&space;&&space;-x&space;&plus;&space;y&space;-2z&space;=&space;6\\&space;\end{cases}" title="\begin{cases} & x + 3y + 4z = -10\\ & 3x - 4y + 2z = 4\\ & -x + y -2z = 6\\ \end{cases}" />)
+![system_eqs](https://latex.codecogs.com/gif.latex?%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%20x%20&plus;%203y%20&plus;%204z%20%3D%20-10%5C%5C%203x%20-%204y%20&plus;%202z%20%3D%204%5C%5C%20-x%20&plus;%20y%20-%202z%20%3D%206%20%5Cend%7Bmatrix%7D%5Cright)
 
 The python code and method calls to find the solutions to this system of equations are as follows,
 ```python
