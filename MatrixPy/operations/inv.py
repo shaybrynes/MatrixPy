@@ -2,6 +2,8 @@
 __author__ = "Shay Brynes"
 __license__ = "Apache License 2.0"
 
+from decimal import Decimal
+
 
 def calc_inv(a):
     """""
@@ -111,7 +113,7 @@ def calc_n_inv(a, inv):
 
             # To reduce the element to zero all elements in the row need to be multiplied by a modifier.
             # This modifier is the inverse of the diagonal element, times the element to be zeroed.
-            row_mod = inv[0][m][n] * (inv[0][n][n]**(-1))
+            row_mod = Decimal(inv[0][m][n]) * Decimal(str(inv[0][n][n])) ** Decimal("-1")
 
             # Perform the row addition.
             for j in range(0, len(a[1])):
@@ -126,7 +128,7 @@ def calc_n_inv(a, inv):
 
             # To reduce the element to one all elements in the row need to be multiplied by a modifier.
             # This modifier is the inverse of the diagonal element.
-            row_mod = (inv[0][n][n]**(-1))
+            row_mod = Decimal(str(inv[0][n][n])) ** Decimal("-1")
 
             # Perform the row addition.
             for i in range(0, len(a[0])):
@@ -136,8 +138,7 @@ def calc_n_inv(a, inv):
                 inv[0][m][i] = inv[0][m][i] * row_mod
                 inv[1][m][i] = inv[1][m][i] * row_mod
 
-
-    return solutions
+    return inv[1]
 
 
 # Calculates inverse of 2x2 matrices
