@@ -2,6 +2,8 @@
 __author__ = "Shay Brynes"
 __license__ = "Apache License 2.0"
 
+from decimal import Decimal
+
 from MatrixPy.print_matrix import *
 from MatrixPy.gen_matrix import *
 from MatrixPy.operations.add import *
@@ -34,6 +36,31 @@ class Matrix:
             print("Tuple needed for class constructor.")
             # Throw a type error.
             raise TypeError
+
+        self.decimalify()
+
+    def decimalify(self):
+        """""
+        Sets all elements of the matrix to decimal elements,
+        this improves floating point accuracy
+        """""
+
+        solutions = []
+        matrix_list = self.to_list()
+
+        # Iterate over the whole height of the matrix.
+        for i in range(0, len(matrix_list)):
+
+            row = []
+            # Iterate over the whole height of the list.
+            for j in range(0, len(matrix_list[0])):
+                # Set the element to a decimal object.
+                row.append(Decimal(str(matrix_list[i][j])))
+
+            solutions.append(row)
+
+        # Change the matrix object's value to the decimal element.
+        self.matrix = matrix_list
 
     def get_tuple(self):
         """""
@@ -111,6 +138,12 @@ class Matrix:
         return to_tuple
 
     def round(self, decimals):
+        """""
+        This method rounds every element in the matrix to the desired
+        number of decimal places.
+
+        :param int decimals: A the number of decimal places to round too.
+        """""
 
         solutions = []
         matrix_list = self.to_list()
@@ -121,8 +154,9 @@ class Matrix:
             row = []
             # Iterate over the whole height of the list.
             for j in range(0, len(matrix_list[0])):
-                # Round the value to 12 decimal places.
-                row.append(round(matrix_list[i][j], decimals))
+                # Round the value to the specified number of decimal places.
+                row.append(Decimal.quantize(matrix_list[i][j],
+                                            Decimal(str(10) ** (Decimal(str(-1) * Decimal(str(decimals)))))))
 
             solutions.append(row)
 
