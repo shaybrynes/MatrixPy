@@ -2,7 +2,7 @@
 __author__ = "Shay Brynes"
 __license__ = "Apache License 2.0"
 
-from decimal import Decimal
+from decimal import *
 
 from MatrixPy.print_matrix import *
 from MatrixPy.gen_matrix import *
@@ -53,7 +53,7 @@ class Matrix:
         this improves floating point accuracy
         """""
 
-        solutions = []
+        solution = []
         matrix_list = self.to_list()
 
         # Iterate over the whole height of the matrix.
@@ -65,10 +65,10 @@ class Matrix:
                 # Set the element to a decimal object.
                 row.append(Decimal(str(matrix_list[i][j])))
 
-            solutions.append(row)
+            solution.append(row)
 
         # Change the matrix object's value to the decimal element.
-        self.matrix = matrix_list
+        self.matrix = Matrix.to_tuple(solution)
 
     @staticmethod
     def __verify_matrix__(matrix_input):
@@ -164,31 +164,45 @@ class Matrix:
 
         return to_tuple
 
-    def round(self, decimals):
+    def round(self, decimals, *ignore, normalize=False):
         """""
         This method rounds every element in the matrix to the desired
         number of decimal places.
 
         :param int decimals: A the number of decimal places to round too.
+        :param boolean normalize: Whether or not trailing zeroes should be removed.
         """""
 
-        solutions = []
-        matrix_list = self.to_list()
+        # If the user has accidentally added more parameters than needed.
+        if ignore:
+            print("Unnecessary arguments submitted to generator method.")
+            # Throw a type error.
+            raise TypeError
 
-        # Iterate over the whole height of the matrix.
-        for i in range(0, len(matrix_list)):
+        else:
 
-            row = []
-            # Iterate over the whole height of the list.
-            for j in range(0, len(matrix_list[0])):
-                # Round the value to the specified number of decimal places.
-                row.append(Decimal.quantize(matrix_list[i][j],
-                                            Decimal(str(10) ** (Decimal(str(-1) * Decimal(str(decimals)))))))
+            solutions = []
+            matrix_list = self.to_list()
 
-            solutions.append(row)
+            # Iterate over the whole height of the matrix.
+            for i in range(0, len(matrix_list)):
 
-        # Change the matrix object's value to the rounded element.
-        self.matrix = matrix_list
+                row = []
+                # Iterate over the whole width of the list.
+                for j in range(0, len(matrix_list[0])):
+                    # Round the value to the specified number of decimal places.
+                    element = matrix_list[i][j].quantize(Decimal("10")**(Decimal("-1")*Decimal(str(decimals))))
+
+                    # Should trailing zeroes be removed?
+                    if normalize:
+                        element = element.normalize()
+
+                    row.append(element)
+
+                solutions.append(row)
+
+            # Change the matrix object's value to the rounded element.
+            self.matrix = Matrix.to_tuple(solutions)
 
     @staticmethod
     def generate(m, n, minimum, maximum, *ignore, integers=True, decimal_places=None):
@@ -211,45 +225,47 @@ class Matrix:
             # Throw a type error.
             raise TypeError
 
-        # If 'm' is and integer.
-        if type(m) is int:
+        else:
 
-            # If 'n' is and integer.
-            if type(n) is int:
+            # If 'm' is and integer.
+            if type(m) is int:
 
-                # If 'minimum' is and integer.
-                if type(minimum) is int:
+                # If 'n' is and integer.
+                if type(n) is int:
 
-                    # If 'maximum' is and integer.
-                    if type(maximum) is int:
+                    # If 'minimum' is and integer.
+                    if type(minimum) is int:
 
-                        # Produce a random matrix.
-                        resultant = gen_matrix(m, n, minimum, maximum, integers, decimal_places)
+                        # If 'maximum' is and integer.
+                        if type(maximum) is int:
 
-                        # Produce a Matrix object from this result.
-                        c = Matrix(Matrix.to_tuple(resultant))
+                            # Produce a random matrix.
+                            resultant = gen_matrix(m, n, minimum, maximum, integers, decimal_places)
 
-                        return c
+                            # Produce a Matrix object from this result.
+                            c = Matrix(Matrix.to_tuple(resultant))
+
+                            return c
+
+                        else:
+                            print("ERROR: Argument 'maximum' is not of type 'int'.")
+                            # Throw a TypeError
+                            raise TypeError
 
                     else:
-                        print("ERROR: Argument 'maximum' is not of type 'int'.")
+                        print("ERROR: Argument 'minimum' is not of type 'int'.")
                         # Throw a TypeError
                         raise TypeError
 
                 else:
-                    print("ERROR: Argument 'minimum' is not of type 'int'.")
+                    print("ERROR: Argument 'n' is not of type 'int'.")
                     # Throw a TypeError
                     raise TypeError
 
             else:
-                print("ERROR: Argument 'n' is not of type 'int'.")
+                print("ERROR: Argument 'm' is not of type 'int'.")
                 # Throw a TypeError
                 raise TypeError
-
-        else:
-            print("ERROR: Argument 'm' is not of type 'int'.")
-            # Throw a TypeError
-            raise TypeError
 
     def ins_transpose(self):
         """""
@@ -611,5 +627,5 @@ class Matrix:
 
             # Since resultant is a list, convert it back to a tuple.
             c = Matrix(Matrix.to_tuple(resultant))
-            # Return the inverse of 'a'.
+            # Return the solutions of the system.
             return c
