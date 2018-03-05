@@ -44,6 +44,8 @@ class Matrix:
         # Inform the user of their mistake.
         else:
             print("The class constructor requires a rectangular matrix.")
+            # Throw a type error.
+            raise TypeError
 
     def __decimalify__(self):
         """""
