@@ -6,8 +6,8 @@ __license__ = "Apache License 2.0"
 def calc_mult(a, b):
     """""
     Multiplies two matrices together.
-    :param list a: The first Matrix in the multiplication.
-    :param list b: The second Matrix in the multiplication.
+    :param list a: The first matrix in the multiplication.
+    :param list b: The second matrix in the multiplication.
     :return: The result of the multiplication of the two matrices.
     :rtype: list
     """""
