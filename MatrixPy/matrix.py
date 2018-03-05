@@ -110,6 +110,25 @@ class Matrix:
 
         return to_tuple
 
+    def round(self, decimals):
+
+        solutions = []
+        matrix_list = self.to_list()
+
+        # Iterate over the whole height of the matrix.
+        for i in range(0, len(matrix_list)):
+
+            row = []
+            # Iterate over the whole height of the list.
+            for j in range(0, len(matrix_list[0])):
+                # Round the value to 12 decimal places.
+                row.append(round(matrix_list[i][j], decimals))
+
+            solutions.append(row)
+
+        # Change the matrix object's value to the rounded element.
+        self.matrix = matrix_list
+
     @staticmethod
     def generate(m, n, minimum, maximum, *ignore, integers=True, decimal_places=None):
         """""
