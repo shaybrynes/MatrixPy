@@ -2,6 +2,8 @@
 __author__ = "Shay Brynes"
 __license__ = "Apache License 2.0"
 
+from decimal import Decimal
+
 
 def calc_det(a):
     """""
@@ -53,14 +55,14 @@ def calc_det(a):
 
             # To reduce the element to zero all elements in the row need to be multiplied by a modifier.
             # This modifier is the inverse of the diagonal element, times the element to be zeroed.
-            row_mod = round(a[m][n] * (a[n][n] ** (-1)), 14)
+            row_mod = Decimal(a[m][n]) * (Decimal(a[n][n]) ** Decimal("-1"))
 
             # Perform the row addition.
             for j in range(0, len(a[1])):
 
                 # The subtraction of the column element times the modifier from the row to be given a leading zero
                 # produces a leading zero.
-                a[m][j] = round(a[m][j] - (a[n][j] * row_mod), 14)
+                a[m][j] = a[m][j] - (a[n][j] * row_mod)
 
         # Once the determinant has been transformed to an upper triangular matrix
         # the determinant can be found as the product of the major diagonal.
