@@ -23,23 +23,29 @@ class Matrix:
         
         :param tuple matrix_input: The first Matrix in the addition.
         """""
+        # If the matrix is rectangular create an instance.
+        if Matrix.__verify_matrix__(matrix_input):
 
-        # Force use of tuple type, immutability issues otherwise.
-        if type(matrix_input) is tuple:
-            self.matrix = matrix_input
+            # Force use of tuple type, immutability issues otherwise.
+            if type(matrix_input) is tuple:
+                self.matrix = matrix_input
 
-        # Let the user off for inputting a list.
-        elif type(matrix_input) is list:
-            self.matrix = Matrix.to_tuple(matrix_input)
+            # Let the user off for inputting a list.
+            elif type(matrix_input) is list:
+                self.matrix = Matrix.to_tuple(matrix_input)
 
+            else:
+                print("Tuple needed for class constructor.")
+                # Throw a type error.
+                raise TypeError
+
+            self.__decimalify__()
+
+        # Inform the user of their mistake.
         else:
-            print("Tuple needed for class constructor.")
-            # Throw a type error.
-            raise TypeError
+            print("The class constructor requires a rectangular matrix.")
 
-        self.decimalify()
-
-    def decimalify(self):
+    def __decimalify__(self):
         """""
         Sets all elements of the matrix to decimal elements,
         this improves floating point accuracy
@@ -61,6 +67,25 @@ class Matrix:
 
         # Change the matrix object's value to the decimal element.
         self.matrix = matrix_list
+
+    @staticmethod
+    def __verify_matrix__(matrix_input):
+        """""
+        Determines if the matrix is rectangular, this is important for many
+        of the operations in this module. 
+        """""
+        # Length of the first row.
+        first_len = len(matrix_input[0])
+
+        # Iterate over all the rows.
+        for i in range(0, len(matrix_input)):
+
+            # If the length of a row is not the same as the first then the matrix is not rectangular.
+            if len(matrix_input[i]) != first_len:
+
+                return False
+
+        return True
 
     def get_tuple(self):
         """""
