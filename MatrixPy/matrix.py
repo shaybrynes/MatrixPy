@@ -10,51 +10,30 @@ from MatrixPy.operations.mult import *
 from MatrixPy.operations.det import *
 from MatrixPy.operations.inv import *
 from MatrixPy.operations.transpose import *
+from MatrixPy.operations.eqs_system import *
 
 
 class Matrix:
 
-    def __init__(self, matrix_input, *ignore, m=None, n=None):
+    def __init__(self, matrix_input):
         """""
         Creates an instance of the matrix class.
         
         :param tuple matrix_input: The first Matrix in the addition.
-        :param int m: The number of rows in the Matrix.
-        :param int n: The number of columns in the Matrix.
         """""
-
-        # If the user has accidentally added more parameters than needed.
-        if ignore:
-            print("Unnecessary arguments submitted to class constructor.")
-            # Throw a type error.
-            raise TypeError
 
         # Force use of tuple type, immutability issues otherwise.
         if type(matrix_input) is tuple:
             self.matrix = matrix_input
 
+        # Let the user off for inputting a list.
+        elif type(matrix_input) is list:
+            self.matrix = Matrix.to_tuple(matrix_input)
+
         else:
             print("Tuple needed for class constructor.")
             # Throw a type error.
             raise TypeError
-
-        # If the user has preset 'm'.
-        if m is None:
-
-            # 'm' is the number of rows.
-            self.m = len(matrix_input)
-
-        else:
-            self.m = m
-
-        # If the user has preset 'n'.
-        if n is None:
-
-            # 'n' is the number of columns.
-            self.n = len(matrix_input[0])
-
-        else:
-            self.n = n
 
     def get_tuple(self):
         """""
@@ -168,7 +147,7 @@ class Matrix:
                         resultant = gen_matrix(m, n, minimum, maximum, integers, decimal_places)
 
                         # Produce a Matrix object from this result.
-                        c = Matrix(Matrix.to_tuple(resultant), m=m, n=n)
+                        c = Matrix(Matrix.to_tuple(resultant))
 
                         return c
 
@@ -277,7 +256,7 @@ class Matrix:
                 else:
 
                     # Since resultant is a list, convert it back to a tuple.
-                    c = Matrix(Matrix.to_tuple(resultant), m=a.m, n=a.n)
+                    c = Matrix(Matrix.to_tuple(resultant))
 
                     # Return the matrix 'c'.
                     return c
@@ -353,7 +332,7 @@ class Matrix:
                 else:
 
                     # Since resultant is a list, convert it back to a tuple.
-                    c = Matrix(Matrix.to_tuple(resultant), m=a.m, n=a.n)
+                    c = Matrix(Matrix.to_tuple(resultant))
 
                     # Return the matrix 'c'.
                     return c
@@ -429,7 +408,7 @@ class Matrix:
                 else:
 
                     # Since resultant is a list, convert it back to a tuple.
-                    c = Matrix(Matrix.to_tuple(resultant), m=a.m, n=b.n)
+                    c = Matrix(Matrix.to_tuple(resultant))
 
                     # Return the matrix 'c'.
                     return c
@@ -499,6 +478,7 @@ class Matrix:
         """""
         Finds the inverse of the instance matrix.
 
+        :param Matrix a: The matrix to be inverted.
         :return: The inverse of the instance.
         :rtype: Matrix
         """""
@@ -518,7 +498,7 @@ class Matrix:
             else:
 
                 # Since resultant is a list, convert it back to a tuple.
-                c = Matrix(Matrix.to_tuple(resultant), m=a.m, n=a.n)
+                c = Matrix(Matrix.to_tuple(resultant))
 
                 # Return the inverse of 'a'.
                 return c
@@ -527,3 +507,29 @@ class Matrix:
         else:
             print("INVERSE: Matrix has no inverse, determinant is 0")
             raise ZeroDivisionError
+
+    @staticmethod
+    def solve_system(a, b):
+        """""
+        Finds the solutions to a system of simultaneous equations.
+        
+        :param Matrix a: The matrix of the co-efficients equations to be solved.
+        :param Matrix b: The matrix of the solutions to the equations.
+        :return: The solutions of the system of equations.
+        :rtype: Matrix
+        """""
+
+        # Send a list version of the matrix tuple, since tuples are immutable.
+        resultant = calc_solutions(a.to_list(), b.to_list())
+
+        # If there was a problem with the inverse.
+        if type(resultant) is str:
+            raise ValueError
+
+        # Create a new Matrix object to be returned.
+        else:
+
+            # Since resultant is a list, convert it back to a tuple.
+            c = Matrix(Matrix.to_tuple(resultant))
+            # Return the inverse of 'a'.
+            return c
