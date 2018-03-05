@@ -8,7 +8,7 @@ def calc_inv(a):
     Finds the inverse of the matrix 'a' using row operations
     to achieve the identity matrix after an augmentation. 
     
-    :param list a: The first Matrix in the multiplication.
+    :param list a: The matrix to invert.
     :return: The inverse of the matrix.
     :rtype: list
     """""
@@ -111,33 +111,33 @@ def calc_n_inv(a, inv):
 
             # To reduce the element to zero all elements in the row need to be multiplied by a modifier.
             # This modifier is the inverse of the diagonal element, times the element to be zeroed.
-            row_mod = round(inv[0][m][n] * (inv[0][n][n]**(-1)), 14)
+            row_mod = inv[0][m][n] * (inv[0][n][n]**(-1))
 
             # Perform the row addition.
             for j in range(0, len(a[1])):
 
                 # The subtraction of the column element times the modifier from the row to be given a leading zero
                 # produces a leading zero. Applies to both sides of the augmentation.
-                inv[0][m][j] = round(inv[0][m][j] - (inv[0][n][j] * row_mod), 14)
-                inv[1][m][j] = round(inv[1][m][j] - (inv[1][n][j] * row_mod), 14)
+                inv[0][m][j] = inv[0][m][j] - (inv[0][n][j] * row_mod)
+                inv[1][m][j] = inv[1][m][j] - (inv[1][n][j] * row_mod)
 
         # If the element to be reduced needs to be 1, i.e does lie on the diagonal.
         elif n == m:
 
             # To reduce the element to one all elements in the row need to be multiplied by a modifier.
             # This modifier is the inverse of the diagonal element.
-            row_mod = round((inv[0][n][n]**(-1)), 14)
+            row_mod = (inv[0][n][n]**(-1))
 
             # Perform the row addition.
             for i in range(0, len(a[0])):
 
                 # Multiplying the whole row by the modification factor will keep leading zeroes as zeroes, and
                 # reduce the diagonal part to 1. Applies to both sides of the augmentation.
-                inv[0][m][i] = round(inv[0][m][i] * row_mod, 14)
-                inv[1][m][i] = round(inv[1][m][i] * row_mod, 14)
+                inv[0][m][i] = inv[0][m][i] * row_mod
+                inv[1][m][i] = inv[1][m][i] * row_mod
 
-    # Returns the inverse of the matrix 'a'.
-    return inv[1]
+
+    return solutions
 
 
 # Calculates inverse of 2x2 matrices
@@ -156,10 +156,10 @@ def calc_two_inv(a):
     determinant = ((a[0][0]*a[1][1]) - (a[0][1]*a[1][0]))
 
     # Find the inverse of the matrix.
-    inv[0].append(a[1][1]/determinant)
-    inv[0].append(-a[0][1]/determinant)
-    inv[1].append(-a[1][0]/determinant)
-    inv[1].append(a[0][0]/determinant)
+    inv[0].append(round(a[1][1]/determinant, 12))
+    inv[0].append(round(-a[0][1]/determinant, 12))
+    inv[1].append(round(-a[1][0]/determinant, 12))
+    inv[1].append(round(a[0][0]/determinant, 12))
 
     # Return the inverse of the matrix.
     return inv
