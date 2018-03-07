@@ -205,7 +205,7 @@ The system of equations shown below has 3 equations for 3 variables. An equation
 The python code and method calls to find the solutions to this system of equations are as follows,
 ```python
 a_tuple = ((1, 3, 4), (3, -4, 2), (-1, 1, -2)) # Matrix of the co-efficients of the system of equations.
-b_tuple = ((-10), (4), (6)) # Matrix of the solutions to each of the equations.
+b_tuple = ((-10,), (4,), (6,)) # Matrix of the solutions to each of the equations.
 
 a_matrix = Matrix(a_tuple)
 b_matrix = Matrix(b_tuple)
