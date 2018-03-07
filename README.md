@@ -195,7 +195,7 @@ The two print statements will return the same value.
 
 ### Finding the solutions of a system of equations:
 
-This project now also supports the calculation for solutions for a system of simultaneous equations. The algorithm is also based on row reduction and its method can be seen in action 
+This project now also supports the calculation of solutions of a system of simultaneous equations. The algorithm is also based on row reduction and its method can be seen in action 
 [here](https://en.wikipedia.org/wiki/System_of_linear_equations#Row_reduction). This can be used to find the solutions of any number of variables.
 
 The system of equations shown below has 3 equations for 3 variables. An equation is required for each variable for a full solution to be found. In short, the tuple of equation coefficients must be square.
