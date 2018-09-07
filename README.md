@@ -11,6 +11,7 @@ _*A simple handler for matrix objects in Python 3.*_
     * [Generate a Matrix](https://github.com/shaybrynes/MatrixPy#generate-a-matrix)
     * [Round elements of a Matrix](https://github.com/shaybrynes/MatrixPy#round-elements-of-a-matrix)
     * [Adding, Subtracting and Multiplying Matrices](https://github.com/shaybrynes/MatrixPy#adding-subtracting-and-multiplying-matrices)
+    * [Finding the Power of a Matrix](https://github.com/shaybrynes/MatrixPy#finding-the-power-of-a-matrix)
     * [Finding the Transpose of a Matrix](https://github.com/shaybrynes/MatrixPy#finding-the-transpose-of-a-matrix)
     * [Finding the Determinant of Matrices](https://github.com/shaybrynes/MatrixPy#finding-the-determinant-of-matrices)
     * [Finding the Inverse of Matrices](https://github.com/shaybrynes/MatrixPy#finding-the-inverse-of-matrices)
@@ -87,7 +88,7 @@ This prints the matrix to the console.
 
 This module also allows the generation of matrices of any size. The method to call is:
 ```python
-a_matrix = Matrix.generate(m, n, minimum, maximum, integers=True, decimal_places=None) 
+a_matrix = Matrix.generate_random(m, n, minimum, maximum, integers=True, decimal_places=None) 
 # The last two arguments are non-essential.
 ```
 
@@ -97,6 +98,13 @@ and maximum value. _'integers'_ and _'decimal\_places'_ are optional arguments t
 floating point values to fill the elements on th matrix. _'integers'_ set to false produces floating point
 values and _'decimal\_places'_ sets the number of decimal places each of the elements should be rounded to.
 
+As of 1.3.0b1 you can also generate identity matrices of any size. The method is similar:
+```python
+a_identity = Matrix.generate_identity(m)
+```
+
+This will generate an identity matrix of size _'m'_ x _'n'_.
+
 ### Round elements of a Matrix:
 
 MatrixPy also allows you to round every element of the matrix to a specified number of decimal places.
@@ -105,44 +113,58 @@ a_tuple = ((2.543, 3.55), (9.11034, 3.14159))
 a_matrix = Matrix(a_tuple)
 
 a_matrix.round(2, normalize=False)
-# 'normalize' is a non-essential parameter that is true removes trailing zeroes.
+# 'normalize' is a non-essential parameter that is true removes trailing zeroes if set to true.
 a_matrix.print()
 ```
 
 This produces a matrix whose elements are all rounded to 2 decimal places. These elements have kept their trailing zeroes because
 normalize is set to _'False'_.
 
-
-
 ### Adding, Subtracting and Multiplying Matrices:
 
-MatrixPy handles the addition of two Matrices. It has two methods, each of which produces a different result.
+MatrixPy handles the addition of two Matrices. It has two methods, that ultimately produce the same result.
 ```python
 a_matrix = ((1, 1, 1), (1, 1, 1), (1, 1, 1))
 identity = ((1, 0, 0), (0, 1, 0), (0, 0, 1))
 
 b_matrix = Matrix.add(a_matrix, identity) # Adds the two matrices, puts answer in new Matrix object.
-a_matrix.ins_add(identity) # Adds the two matrices, changes the value of a_matrix to the sum.
+c_matrix = a_matrix + b_matrix # Adds the two matrices, sets c_matrix to the result.
+a_matrix += b_matrix # Adds the two matrices, uses Python's 'Dunder methods'.
 
 a_matrix.print()
 b_matrix.print()
+c_matrix.print()
 ```
-This section of code will output two matrices. Which in this case will have the same value.
-Using the _ins\__ prefix tells MatrixPy that the modifier should be applied to the instance.
+This section of code will output three matrices. Which in this case will all have the same value.
 
 Subtraction of the matrices works in the same way, but the call to be made is as follows;
 ```python
-b_matrix = Matrix.subtract(a_matrix, identity)  # Subtracts the two matrices, puts answer in new Matrix object.
-a_matrix.ins_subtract(identity) # Subtracts the two matrices, changes the value of a_matrix to the sum.
+b_matrix = Matrix.subtract(a_matrix, identity) # Subtract the two matrices, puts answer in new Matrix object.
+c_matrix = a_matrix - b_matrix # Subtract the two matrices, sets c_matrix to the result.
+a_matrix -= b_matrix # Subtracts the two matrices, uses Python's 'Dunder methods'.
 ```
 
 Similarily for multiplying matrices;
 ```python
 b_matrix = Matrix.multiply(a_matrix, identity) # Multiplies the two matrices, puts answer in new Matrix object.
-a_matrix.ins_multiply(identity) # Multiplies the two matrices, changes the value of a_matrix to the sum.
+c_matrix = a_matrix * b_matrix # Multiplies the two matrices, sets c_matrix to the result.
+a_matrix *= b_matrix # Multiplies the two matrices, uses Python's 'Dunder methods'.
 ```
 However, it should be noted that the normal rules for multiplying matrices applies. 
 The rows in _'a'_ needs to match the number of columns in matrix _'b'_.
+
+### Finding the Power of a Matrix:
+
+You can also use MatrixPy to calculate the exponents of Matrices. Say, for instance, you wanted to raise the matrix to the power of 10
+you can use this method to find the result of this.
+
+```python
+a_tuple = ((2, 1, -1), (4, 1, 7), (8, -1, 3))
+a_matrix = Matrix(a_tuple)
+
+b_matrix = Matrix.power(a_matrix, 10) # Finds the 10th power of the matrix, uses traditional method calling
+c_matrix = a_matrix ** 10 # Finds the 10th power of the matrix, uses 'Dunder methods'.
+```
 
 ### Finding the Transpose of a Matrix:
 
@@ -154,24 +176,26 @@ is found as follows:
 a_tuple = ((2, 1, -1), (4, 1, 7), (8, -1, 3))
 a_matrix = Matrix(a_tuple)
 
-b_matrix = Matrix.transpose(a_matrix) # or
-a_matrix.ins_transpose()
+b_matrix = Matrix.transpose(a_matrix) # Transposes the matrix, uses traditional method calling.
+c_matrix = a_matrix ** "T" # Transposes the matrix, uses Python's 'Dunder methods'.
 ``` 
 
-Both of these methods produce the same result, but as before _ins\__ changes the value of the instance.
+Both of these methods produce the same result.
 
 ### Finding the Determinant of Matrices:
 
 In MatrixPy determinants are found using the algorithm found [here](https://en.wikipedia.org/wiki/Gaussian_elimination#Computing_determinants),
 on wikipedia. This method can be applied to an matrix of any size, hence the determinant of any _'m'_ x _'m'_ matrix can be found using MatrixPy.
 
-The determinant in MatrixPy is calculated using the method below, it returns a decimal object.
+The determinant in MatrixPy is calculated using either of the methods below, it returns a decimal object.
 ```python
 a_tuple = ((2, 1, -1), (4, 1, 7), (8, -1, 3))
 a_matrix = Matrix(a_tuple)
 
-determinant = a_matrix.determinant()
-print(determinant)
+determinant_1 = Matrix.determinant(a_matrix) # Finds the matrix's determinant, uses traditional method calling.
+determinant_2 = abs(a_matrix) # Finds the matrix's determinant, uses Python's 'Dunder methods'.
+print(determinant_1)
+print(determinant_2)
 ```
 
 ### Finding the Inverse of Matrices:
@@ -182,10 +206,10 @@ again on wikipedia. As with the determinant this can be applied to a matrix of a
 The inverse in MatrixPy is calculated using the method below,
 ```python
 a_tuple = ((2, 1, -1), (4, 1, 7), (8, -1, 3))
-a_matrix = Matrix(a_tuple) # Creates a Matrix object.
+a_matrix = Matrix(a_tuple)
 
-b_matrix = Matrix.inverse(a_matrix) # Inverses the matrix, returns a new Matrix object.
-a_matrix.ins_inverse() # Inverses the matrix, sets its value as its own inverse.
+b_matrix = Matrix.inverse(a_matrix) # Inverses the matrix, uses traditional method calling.
+c_matrix = a_matrix ** -1 # Inverses the matrix, uses Python's 'Dunder methods'.
 
 a_matrix.print()
 b_matrix.print()
@@ -195,7 +219,7 @@ The two print statements will return the same value.
 
 ### Finding the solutions of a system of equations:
 
-This project now also supports the calculation of solutions of a system of simultaneous equations. The algorithm is also based on row reduction and its method can be seen in action 
+This project now also supports the calculation for solutions for a system of simultaneous equations. The algorithm is also based on row reduction and its method can be seen in action 
 [here](https://en.wikipedia.org/wiki/System_of_linear_equations#Row_reduction). This can be used to find the solutions of any number of variables.
 
 The system of equations shown below has 3 equations for 3 variables. An equation is required for each variable for a full solution to be found. In short, the tuple of equation coefficients must be square.
